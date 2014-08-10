@@ -33,7 +33,11 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(function()
 {
-    return $_SERVER['APPLICATION_ENV'];
+    if (isset($_SERVER['APPLICATION_ENV'])) {
+    	return $_SERVER['APPLICATION_ENV'];
+    }
+
+    return "development";
 });
 
 /*
