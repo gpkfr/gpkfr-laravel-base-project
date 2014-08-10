@@ -2,6 +2,17 @@
 
 class SessionsController extends \BaseController {
 
+	/**
+	* User Repository
+	**/
+	protected $user;
+
+
+  public function __construct(User $user)
+  {
+  	$this->user = $user;
+  }
+
 	/*
 	 * Display a listing of the resource.
 	 *
@@ -9,25 +20,27 @@ class SessionsController extends \BaseController {
 	 */
 	public function index()
 	{
-				if (Auth::check()) {
-			# redirect to main page
-			return Redirect::to ('/');
-		}
-		return Redirect::to ('/login');
+		// 		if (Auth::check()) {
+		// 	# redirect to main page
+		// 	return Redirect::to ('/');
+		// }
+		// return Redirect::to ('/login');
 	}
 
 
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @return Response
+	 * @return sessions.create views or redirect if logged in
 	 */
 	public function create()
 	{
 		if (Auth::check()) {
-			# redirect to main page
+			// redirect to main page
 			return Redirect::to ('/');
 		}
+
+		// Login Page
 		return View::make('sessions.create');
 	}
 
@@ -45,8 +58,9 @@ class SessionsController extends \BaseController {
 			return Redirect::intended('/');
 		}
 
-		  return Redirect::back()->withInput();
-
+		  return Redirect::back()
+		         ->withInput()
+		         ->with('login_errors',true);
 	}
 
 
@@ -99,6 +113,4 @@ class SessionsController extends \BaseController {
 
 		return Redirect::to('/login');
 	}
-
-
 }
