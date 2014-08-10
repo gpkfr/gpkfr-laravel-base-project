@@ -2,7 +2,7 @@
 
 class SessionsController extends \BaseController {
 
-	/**
+	/*
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -42,7 +42,7 @@ class SessionsController extends \BaseController {
 		//
 		if (Auth::attempt(Input::only('email','password')))
 		{
-			return Redirect::to('/');
+			return Redirect::intended('/');
 		}
 
 		  return Redirect::back()->withInput();
